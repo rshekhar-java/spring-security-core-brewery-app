@@ -3,6 +3,7 @@ package com.rs.springsecurity.web.controllers;
 import com.rs.springsecurity.domain.Beer;
 import com.rs.springsecurity.repositories.BeerRepository;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
@@ -31,6 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * created by rs 3/7/2022.
  */
+@Disabled
 @ExtendWith(MockitoExtension.class)
 public class BeerControllerTest {
     @Mock

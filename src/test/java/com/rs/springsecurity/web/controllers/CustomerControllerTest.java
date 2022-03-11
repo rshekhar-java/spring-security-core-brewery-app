@@ -29,6 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * created by rs 3/7/2022.
  */
 @ExtendWith(MockitoExtension.class)
+@Disabled
 public class CustomerControllerTest {
 
     @Mock
