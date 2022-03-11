@@ -11,7 +11,21 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
+
     @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .csrf().disable().cors().disable().headers().frameOptions().disable()
+                .and()
+                .authorizeRequests().antMatchers("/h2-console/**").permitAll()
+                .and()
+                .authorizeRequests().anyRequest().authenticated()
+                .and()
+                .httpBasic();
+    }
+
+
+/*    @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable();
         httpSecurity.headers().frameOptions().disable();
@@ -21,11 +35,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 //                .authorizeRequests(authorize -> authorize.mvcMatchers("/h2-console/**").permitAll()
 //                        .anyRequest().authenticated());
 
- /*       httpSecurity.authorizeRequests()
+ *//*       httpSecurity.authorizeRequests()
                 .antMatchers("/","/h2-console/**").permitAll()
                 .and()
                 .authorizeRequests();
-*/
+*//*
 
 //        httpSecurity.csrf().disable().authorizeRequests()
 //                .antMatchers("/h2-console/**").permitAll()
@@ -33,7 +47,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
 //        httpSecurity.csrf().ignoringAntMatchers("/h2-console/**");
 
-/*
+*//*
         httpSecurity.authorizeRequests().antMatchers("/").permitAll()
                 .and()
                 .authorizeRequests().antMatchers("/h2-console/**").permitAll()
@@ -43,11 +57,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .csrf().ignoringAntMatchers("/h2-console/**")
                 .and()
                 .cors().disable();
-*/
+*//*
 
 //
 //        httpSecurity.headers().frameOptions().sameOrigin();
 
 
-    }
+    }*/
 }
