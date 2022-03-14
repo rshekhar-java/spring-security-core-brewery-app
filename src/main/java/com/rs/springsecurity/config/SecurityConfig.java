@@ -1,10 +1,12 @@
 package com.rs.springsecurity.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 /**
  * created by rs 3/7/2022.
@@ -26,20 +28,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
         //url pattern matching
                  http
+                         .csrf().disable()
                 .authorizeRequests(authorize -> {
                     authorize
+                            .antMatchers("/h2-console/**").permitAll()
                             .antMatchers("/","/webjars/**", "/login", "/resources/**").permitAll()
                             .antMatchers("/beers/find", "/beers*").permitAll()
-                            .antMatchers(HttpMethod.GET, "/api/v1/beer/**").permitAll();
+                            .antMatchers(HttpMethod.GET, "/api/v1/beer/**").permitAll()
+                            .mvcMatchers(HttpMethod.GET, "/api/v1/beerUpc/{upc}").permitAll();
                 } )
                 .authorizeRequests()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().and()
-                .httpBasic();
+                         .formLogin()
+                         .and()
+//                .formLogin().and().csrf().ignoringAntMatchers("/h2-console/**")
+//                         .and().headers().frameOptions().sameOrigin();
+                    .httpBasic();
 
-        http.csrf().disable();
-        http.headers().frameOptions().disable();
+//        http.csrf().ignoringAntMatchers("/h2-console/**");
+//        http.headers().frameOptions().sameOrigin();
     }
 
 
