@@ -34,6 +34,7 @@ public class DefaultBreweryLoader implements CommandLineRunner {
     public void run(String... args) {
         loadBreweryData();
         loadCustomerData();
+        System.out.println("Data Loaded");
     }
 
     private void loadCustomerData() {

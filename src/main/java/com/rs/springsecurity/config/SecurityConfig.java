@@ -28,7 +28,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
         //url pattern matching
                  http
-                         .csrf().disable()
                 .authorizeRequests(authorize -> {
                     authorize
                             .antMatchers("/h2-console/**").permitAll()
@@ -39,15 +38,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 } )
                 .authorizeRequests()
                 .anyRequest().authenticated()
-                .and()
-                         .formLogin()
-                         .and()
+                .and().formLogin().and()
 //                .formLogin().and().csrf().ignoringAntMatchers("/h2-console/**")
 //                         .and().headers().frameOptions().sameOrigin();
                     .httpBasic();
 
-//        http.csrf().ignoringAntMatchers("/h2-console/**");
-//        http.headers().frameOptions().sameOrigin();
+        http.csrf().disable();
+        http.headers().frameOptions().sameOrigin();
     }
 
 
