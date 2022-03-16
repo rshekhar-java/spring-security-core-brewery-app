@@ -1,11 +1,16 @@
 package com.rs.springsecurity.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 /**
@@ -47,44 +52,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http.headers().frameOptions().sameOrigin();
     }
 
+    @Override
+    @Bean
+    protected UserDetailsService userDetailsService() {
+        UserDetails admin = User.withDefaultPasswordEncoder()
+                .username("spring")
+                .password("spring")
+                .roles("ADMIN")
+                .build();
 
-/*    @Override
-    protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.csrf().disable();
-        httpSecurity.headers().frameOptions().disable();
-        httpSecurity.authorizeRequests().antMatchers("/h2-console/**").permitAll();
+        UserDetails user = User.withDefaultPasswordEncoder()
+                .username("user")
+                .password("password")
+                .roles("USER")
+                .build();
 
-//        httpSecurity
-//                .authorizeRequests(authorize -> authorize.mvcMatchers("/h2-console/**").permitAll()
-//                        .anyRequest().authenticated());
+        return new InMemoryUserDetailsManager(admin, user);
+    }
 
- *//*       httpSecurity.authorizeRequests()
-                .antMatchers("/","/h2-console/**").permitAll()
-                .and()
-                .authorizeRequests();
-*//*
-
-//        httpSecurity.csrf().disable().authorizeRequests()
-//                .antMatchers("/h2-console/**").permitAll()
-//                .anyRequest().authenticated();
-
-//        httpSecurity.csrf().ignoringAntMatchers("/h2-console/**");
-
-*//*
-        httpSecurity.authorizeRequests().antMatchers("/").permitAll()
-                .and()
-                .authorizeRequests().antMatchers("/h2-console/**").permitAll()
-                .and()
-                .headers().frameOptions().disable()
-                .and()
-                .csrf().ignoringAntMatchers("/h2-console/**")
-                .and()
-                .cors().disable();
-*//*
-
-//
-//        httpSecurity.headers().frameOptions().sameOrigin();
-
-
-    }*/
 }

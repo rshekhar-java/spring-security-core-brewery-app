@@ -8,7 +8,7 @@ import org.mapstruct.Mapper;
 /**
  * created by rs 3/7/2022.
  */
-@Mapper(uses = {DateMapper.class})
+@Mapper(uses = {DateMapper.class},componentModel = "spring")
 @DecoratedWith(BeerOrderLineMapperDecorator.class)
 public interface BeerOrderLineMapper {
     BeerOrderLineDto beerOrderLineToDto(BeerOrderLine line);

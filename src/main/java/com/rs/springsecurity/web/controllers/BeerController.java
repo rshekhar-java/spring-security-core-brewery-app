@@ -30,6 +30,12 @@ public class BeerController {
     private final BeerRepository beerRepository;
     private final BeerInventoryRepository beerInventoryRepository;
 
+    @RequestMapping("/find")
+    public String findBeers(Model model) {
+        model.addAttribute("beer", Beer.builder().build());
+        return "beers/findBeers";
+    }
+
     @GetMapping
     public String processFindFormReturnMany(Beer beer, BindingResult result, Model model) {
         // find beers by name

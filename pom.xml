@@ -11,6 +11,7 @@
     <groupId>com.rs.springsecurity</groupId>
     <artifactId>spring-security-core-brewery-app</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
     <name> SSC Brewery Spring MVC Monolith</name>
     <description>Brewery App Spring MVC Monolith </description>
 
@@ -95,11 +96,11 @@
             <optional>true</optional>
         </dependency>
 
-        <dependency>
+<!--        <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct-jdk8</artifactId>
             <version>${org.mapstruct.version}</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>

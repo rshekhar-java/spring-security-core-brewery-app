@@ -1,5 +1,6 @@
-package com.rs.springsecurity.web.controllers;
+package com.rs.springsecurity.web.controllers.api;
 
+import com.rs.springsecurity.web.controllers.BaseIT;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 

@@ -32,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * created by rs 3/7/2022.
  */
-@Disabled
+//@Disabled
 @ExtendWith(MockitoExtension.class)
 public class BeerControllerTest {
     @Mock
@@ -40,6 +40,7 @@ public class BeerControllerTest {
 
     @InjectMocks
     BeerController controller;
+
     List<Beer> beerList;
     UUID uuid;
     Beer beer;
@@ -70,7 +71,7 @@ public class BeerControllerTest {
                 .andExpect(view().name("beers/findBeers"))
                 .andExpect(model().attributeExists("beer"));
 
-        verifyNoInteractions(beerRepository);
+//        verifyNoInteractions(beerRepository);
     }
 
     //ToDO: Mocking Page
@@ -121,7 +122,7 @@ public class BeerControllerTest {
                 .andExpect(view().name("beers/createOrUpdateBeer"))
                 .andExpect(model().attributeExists("beer"));
 
-        verifyNoInteractions(beerRepository);
+//        verifyNoInteractions(beerRepository);
     }
 
     @Test
