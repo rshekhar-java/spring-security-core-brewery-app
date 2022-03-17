@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -52,6 +53,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http.headers().frameOptions().sameOrigin();
     }
 
+/*
+
+    //user details config
     @Override
     @Bean
     protected UserDetailsService userDetailsService() {
@@ -69,5 +73,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
         return new InMemoryUserDetailsManager(admin, user);
     }
+*/
 
+    //in memory Config Fluent
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception{
+        auth.inMemoryAuthentication()
+                .withUser("spring")
+                .password("{noop}spring")
+                .roles("ADMIN")
+                .and()
+                .withUser("user")
+                .password("{noop}password")
+                .roles("USER")
+                .and()
+                .withUser("scott")
+                .password("{noop}tiger")
+                .roles("CUSTOMER");
+    }
 }
