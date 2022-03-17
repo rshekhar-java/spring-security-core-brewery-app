@@ -1,0 +1,20 @@
+package com.rs.springsecurity.web.controllers;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.util.DigestUtils;
+
+/**
+ * created by rs 3/16/2022.
+ */
+public class PasswordEncodingTests {
+    static final String PASSWORD = "password";
+
+    @Test
+    void hashingExample() {
+        System.out.println(DigestUtils.md5DigestAsHex(PASSWORD.getBytes()));
+        System.out.println(DigestUtils.md5DigestAsHex(PASSWORD.getBytes()));
+
+        String salted = PASSWORD + "ThisIsMySALTVALUE";
+        System.out.println(DigestUtils.md5DigestAsHex(salted.getBytes()));
+    }
+}
