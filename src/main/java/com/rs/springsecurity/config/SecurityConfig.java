@@ -2,6 +2,7 @@ package com.rs.springsecurity.config;
 
 import com.rs.springsecurity.security.BreweryPasswordEncoderFactories;
 import com.rs.springsecurity.security.RestHeaderAuthFilter;
+import com.rs.springsecurity.security.RestUrlAuthFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -40,6 +41,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         return filter;
     }
 
+    public RestUrlAuthFilter restUrlAuthFilter(AuthenticationManager authenticationManager){
+        RestUrlAuthFilter filter = new RestUrlAuthFilter(new AntPathRequestMatcher("/api/**"));
+        filter.setAuthenticationManager(authenticationManager);
+        return filter;
+    }
 
 
     @Override
@@ -56,6 +62,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
             http.addFilterBefore(restHeaderAuthFilter(authenticationManager()),
                 UsernamePasswordAuthenticationFilter.class)
                     .csrf().disable();
+
+
+            http.addFilterBefore(restUrlAuthFilter(authenticationManager()),
+                UsernamePasswordAuthenticationFilter.class);
         //url pattern matching
                  http
                 .authorizeRequests(authorize -> {
@@ -77,7 +87,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http.headers().frameOptions().sameOrigin();
     }
 
-/*
+    @Bean
+    PasswordEncoder passwordEncoder(){
+        return BreweryPasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
+
+    //in memory Config Fluent
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception{
+        auth.inMemoryAuthentication()
+                .withUser("spring")
+                .password("{bcrypt}$2a$10$O79gq4gxRgbzwDLLACnfBOg.ZwAfKES2Hxn2HLnkadl5mJc8EADDS")
+                .roles("ADMIN")
+                .and()
+                .withUser("user")
+                .password("{sha256}358cc8257d7e279c9595e5ef288ca2cfd4672c01320ba8f0dce404a904efa6434d673c93348a1577")
+                .roles("USER");
+
+        auth.inMemoryAuthentication().withUser("scott").password("{bcrypt10}$2a$10$5KuoJxpFGjOUXTigqQST8uJAKg1K8nUzCuzIL47W.HDbMObnRxUwK").roles("CUSTOMER");
+
+    }
+
+    /*
 
     //user details config
     @Override
@@ -99,26 +131,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     }
 */
 
-    @Bean
-    PasswordEncoder passwordEncoder(){
-        return BreweryPasswordEncoderFactories.createDelegatingPasswordEncoder();
-    }
-
-
-    //in memory Config Fluent
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception{
-        auth.inMemoryAuthentication()
-                .withUser("spring")
-                .password("{bcrypt}$2a$10$O79gq4gxRgbzwDLLACnfBOg.ZwAfKES2Hxn2HLnkadl5mJc8EADDS")
-                .roles("ADMIN")
-                .and()
-                .withUser("user")
-                .password("{sha256}358cc8257d7e279c9595e5ef288ca2cfd4672c01320ba8f0dce404a904efa6434d673c93348a1577")
-                .roles("USER");
-
-        auth.inMemoryAuthentication().withUser("scott").password("{bcrypt10}$2a$10$5KuoJxpFGjOUXTigqQST8uJAKg1K8nUzCuzIL47W.HDbMObnRxUwK").roles("CUSTOMER");
-
-    }
 }
