@@ -54,7 +54,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .httpBasic();*/
 
             http.addFilterBefore(restHeaderAuthFilter(authenticationManager()),
-                UsernamePasswordAuthenticationFilter.class);
+                UsernamePasswordAuthenticationFilter.class)
+                    .csrf().disable();
         //url pattern matching
                  http
                 .authorizeRequests(authorize -> {
