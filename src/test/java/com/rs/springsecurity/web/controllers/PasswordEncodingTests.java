@@ -16,9 +16,19 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class PasswordEncodingTests {
     static final String PASSWORD = "password";
 
-    @Test
+/*    @Test
     void testBcrypt15() {
         PasswordEncoder bcrypt = new BCryptPasswordEncoder(15);
+
+        System.out.println(bcrypt.encode(PASSWORD));
+        System.out.println(bcrypt.encode(PASSWORD));
+        System.out.println(bcrypt.encode("tiger"));
+
+    }*/
+
+    @Test
+    void testBcrypt10() {
+        PasswordEncoder bcrypt = new BCryptPasswordEncoder(10);
 
         System.out.println(bcrypt.encode(PASSWORD));
         System.out.println(bcrypt.encode(PASSWORD));

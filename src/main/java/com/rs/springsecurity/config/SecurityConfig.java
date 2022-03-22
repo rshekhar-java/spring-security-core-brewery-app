@@ -118,7 +118,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .password("{sha256}358cc8257d7e279c9595e5ef288ca2cfd4672c01320ba8f0dce404a904efa6434d673c93348a1577")
                 .roles("USER");
 
-        auth.inMemoryAuthentication().withUser("scott").password("{bcrypt15}$2a$15$lcWlgOsUccXbCErXCci1zuwkW8B1IpeMFRcBOwB30dE8R8xZdkone").roles("CUSTOMER");
+        auth.inMemoryAuthentication().withUser("scott").password("{bcrypt10}$2a$10$5KuoJxpFGjOUXTigqQST8uJAKg1K8nUzCuzIL47W.HDbMObnRxUwK").roles("CUSTOMER");
 
     }
 }
