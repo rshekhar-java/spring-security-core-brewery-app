@@ -1,5 +1,6 @@
 package com.rs.springsecurity.config;
 
+import com.rs.springsecurity.security.BreweryPasswordEncoderFactories;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -84,7 +85,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Bean
     PasswordEncoder passwordEncoder(){
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        return BreweryPasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
 
@@ -101,7 +102,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .password("{sha256}358cc8257d7e279c9595e5ef288ca2cfd4672c01320ba8f0dce404a904efa6434d673c93348a1577")
                 .roles("USER");
 
-        auth.inMemoryAuthentication().withUser("scott").password("{ldap}{SSHA}mR9IcBcymM6WQ81lLP1uKPlmPgnYh1ol7huuoQ==").roles("CUSTOMER");
+        auth.inMemoryAuthentication().withUser("scott").password("{bcrypt15}$2a$15$lcWlgOsUccXbCErXCci1zuwkW8B1IpeMFRcBOwB30dE8R8xZdkone").roles("CUSTOMER");
 
     }
 }
