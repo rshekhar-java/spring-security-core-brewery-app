@@ -15,7 +15,7 @@
         <!--<input
                 th:replace="~{fragments/selectField :: select ('Style', 'beerStyle', ${T(com.rs.springsecurity.web.model.BeerStyleEnum).values()})}" />-->
         <input
-                th:replace="~{fragments/selectField :: select ('Style', 'beerStyle', ${T(com.rs.springsecurity.web.model.BeerStyleEnum).values()})}" />
+                th:replace="~{fragments/selectField :: select ('Style', 'beerStyle','${T(com.rs.springsecurity.web.model.BeerStyleEnum).values()}')}" />
         <input
                 th:replace="~{fragments/inputField :: input ('UPC', 'upc', 'number')}" />
         <input
