@@ -1,6 +1,6 @@
 package com.rs.springsecurity.repositories.security;
 
-import com.rs.springsecurity.domain.security.User;
+import com.rs.springsecurity.domain.security.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
@@ -8,7 +8,7 @@ import java.util.Optional;
 /**
  * created by rs 3/23/2022.
  */
-public interface UserRepository extends JpaRepository<User,Integer> {
+public interface UserRepository extends JpaRepository<Users,Integer> {
 
-    Optional<User> findByUsername(String username);
+    Optional<Users> findByUsername(String username);
 }
