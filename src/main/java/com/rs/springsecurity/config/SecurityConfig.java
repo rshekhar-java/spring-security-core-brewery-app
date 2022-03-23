@@ -67,7 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
             http.addFilterBefore(restUrlAuthFilter(authenticationManager()),
                 UsernamePasswordAuthenticationFilter.class);
         //url pattern matching
-                 http
+                 http.csrf().disable()
                 .authorizeRequests(authorize -> {
                     authorize
                             .antMatchers("/h2-console/**").permitAll()
@@ -83,8 +83,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 //                         .and().headers().frameOptions().sameOrigin();
                     .httpBasic();
 
-        http.csrf().disable();
-        http.headers().frameOptions().sameOrigin();
+//                http.csrf().disable();
+//        http.headers().frameOptions().sameOrigin();
+                //h2 console config
+                http.headers().frameOptions().sameOrigin();
     }
 
     @Bean
