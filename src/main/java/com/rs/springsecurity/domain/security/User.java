@@ -23,6 +23,7 @@ public class User {
     private String username;
     private String password;
 
+
     @Singular
     @ManyToMany(cascade=CascadeType.MERGE)
     @JoinTable(name="user_authority",
