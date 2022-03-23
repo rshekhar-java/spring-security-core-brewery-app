@@ -1,11 +1,18 @@
 package com.rs.springsecurity.domain.security;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.util.Set;
 
 /**
  * created by rs 3/23/2022.
  */
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Entity
 public class Authority {
 
