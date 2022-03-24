@@ -51,14 +51,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-  /*      http
-                .csrf().disable().cors().disable().headers().frameOptions().disable()
-                .and()
-                .authorizeRequests().antMatchers("/h2-console/**").permitAll()
-                .and()
-                .authorizeRequests().anyRequest().authenticated()
-                .and()
-                .httpBasic();*/
 
             http.addFilterBefore(restHeaderAuthFilter(authenticationManager()),
                 UsernamePasswordAuthenticationFilter.class)
@@ -68,21 +60,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
             http.addFilterBefore(restUrlAuthFilter(authenticationManager()),
                 UsernamePasswordAuthenticationFilter.class);
         //url pattern matching
-                 http.csrf().disable()
+                 http
                 .authorizeRequests(authorize -> {
                     authorize
                             .antMatchers("/h2-console/**").permitAll()
                             .antMatchers("/","/webjars/**", "/login", "/resources/**").permitAll()
                             .antMatchers("/beers/find", "/beers*").permitAll()
                             .antMatchers(HttpMethod.GET, "/api/v1/beer/**").permitAll()
+                            .mvcMatchers(HttpMethod.DELETE,"/api/v1/beer/**").hasRole("ADMIN")
                             .mvcMatchers(HttpMethod.GET, "/api/v1/beerUpc/{upc}").permitAll();
                 } )
                 .authorizeRequests()
                 .anyRequest().authenticated()
-                .and().formLogin().and()
-//                .formLogin().and().csrf().ignoringAntMatchers("/h2-console/**")
-//                         .and().headers().frameOptions().sameOrigin();
-                    .httpBasic();
+                         .and()
+                         .formLogin()
+                         .and()
+                         .httpBasic()
+                         .and()
+                         .csrf().disable();
 
 //                http.csrf().disable();
 //        http.headers().frameOptions().sameOrigin();
