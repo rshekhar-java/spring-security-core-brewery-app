@@ -1,6 +1,7 @@
 package com.rs.springsecurity.config;
 
 import com.rs.springsecurity.security.BreweryPasswordEncoderFactories;
+import com.rs.springsecurity.security.JpaUserDetailsService;
 import com.rs.springsecurity.security.RestHeaderAuthFilter;
 import com.rs.springsecurity.security.RestUrlAuthFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,8 +96,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     }
 
     //in memory Config Fluent
-
-    @Override
+   /* @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
         auth.inMemoryAuthentication()
                 .withUser("spring")
@@ -109,7 +109,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
         auth.inMemoryAuthentication().withUser("scott").password("{bcrypt10}$2a$10$5KuoJxpFGjOUXTigqQST8uJAKg1K8nUzCuzIL47W.HDbMObnRxUwK").roles("CUSTOMER");
 
-    }
+    }*/
 
     /*
 
