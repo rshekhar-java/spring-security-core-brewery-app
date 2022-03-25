@@ -29,9 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * created by rs 3/7/2022.
  */
 @ExtendWith(MockitoExtension.class)
-@Disabled
 public class CustomerControllerTest {
-
     @Mock
     CustomerRepository customerRepository;
 
@@ -46,8 +44,8 @@ public class CustomerControllerTest {
     @BeforeEach
     void setUp() {
         customerList = new ArrayList<Customer>();
-        customerList.add(Customer.builder().customerName("John Doe").build());
-        customerList.add(Customer.builder().customerName("John Doe").build());
+        customerList.add(Customer.builder().customerName("Ravi Shekhar").build());
+        customerList.add(Customer.builder().customerName("Ryan Hicks").build());
 
         final String id = "493410b3-dd0b-4b78-97bf-289f50f6e74f";
         uuid = UUID.fromString(id);
@@ -106,6 +104,7 @@ public class CustomerControllerTest {
     }
 
     @Test
+    @Disabled
     void initUpdateCustomerForm() throws Exception{
         when(customerRepository.findById(uuid)).thenReturn(Optional.of(Customer.builder().id(uuid).build()));
         mockMvc.perform(get("/customers/"+uuid+"/edit"))
@@ -126,4 +125,5 @@ public class CustomerControllerTest {
 
         verify(customerRepository).save(ArgumentMatchers.any());
     }
+
 }
