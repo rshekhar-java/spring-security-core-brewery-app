@@ -3,6 +3,7 @@ package com.rs.springsecurity.web.controllers;
 import com.rs.springsecurity.domain.Customer;
 import com.rs.springsecurity.repositories.CustomerRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -69,7 +70,8 @@ public class CustomerController {
         return "customers/createCustomer";
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+//    @Secured({"ROLE_ADMIN","ROLE_CUSTOMER"})
+    @PreAuthorize("hasAnyRole('ADMIN','CUSTOMER')")
     @PostMapping("/new")
     public String processCreationForm(Customer customer) {
         //ToDO: Add Service
