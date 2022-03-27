@@ -1,6 +1,8 @@
 package com.rs.springsecurity.web.controllers;
 
 import com.rs.springsecurity.domain.Brewery;
+import com.rs.springsecurity.security.permissions.BeerReadPermission;
+import com.rs.springsecurity.security.permissions.BreweryReadPermission;
 import com.rs.springsecurity.services.BreweryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,14 +24,14 @@ public class BreweryController {
 
     private final BreweryService breweryService;
 
-    @PreAuthorize("hasAuthority('brewery.read')")
+    @BreweryReadPermission
     @GetMapping({"/breweries", "/breweries/index", "/breweries/index.html", "/breweries.html"})
     public String listBreweries(Model model) {
         model.addAttribute("breweries", breweryService.getAllBreweries());
         return "breweries/index";
     }
 
-    @PreAuthorize("hasAuthority('brewery.read')")
+    @BeerReadPermission
     @GetMapping("/api/v1/breweries")
     public @ResponseBody List<Brewery> getBreweriesJson()
     {
