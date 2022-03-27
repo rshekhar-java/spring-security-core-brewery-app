@@ -33,7 +33,7 @@ class CustomerControllerIT extends BaseIT{
         @Test
         void testListCustomersNOTAUTH() throws Exception {
             mockMvc.perform(get("/customers")
-                            .with(httpBasic("user", "password")))
+                            .with(httpBasic("spring", "spring")))
                     .andExpect(status().isOk());
         }
 

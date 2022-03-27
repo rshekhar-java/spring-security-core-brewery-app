@@ -35,7 +35,7 @@ public class BeerControllerIT extends BaseIT{
         @MethodSource("com.rs.springsecurity.web.controllers.BeerControllerIT#getStreamAllUsers")
         void initCreationFormAuth(String user, String pwd) throws Exception {
 
-            mockMvc.perform(get("/beers/new").with(httpBasic(user, pwd)))
+            mockMvc.perform(get("/beers/new").with(httpBasic("spring", "spring")))
                     .andExpect(status().isOk())
                     .andExpect(view().name("beers/createBeer"))
                     .andExpect(model().attributeExists("beer"));
