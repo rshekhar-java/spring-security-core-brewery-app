@@ -3,6 +3,7 @@ package com.rs.springsecurity.web.controllers;
 import com.rs.springsecurity.repositories.BeerInventoryRepository;
 import com.rs.springsecurity.repositories.BeerRepository;
 import com.rs.springsecurity.repositories.CustomerRepository;
+import com.rs.springsecurity.services.BeerOrderService;
 import com.rs.springsecurity.services.BeerService;
 import com.rs.springsecurity.services.BreweryService;
 import org.junit.jupiter.api.Test;
@@ -31,6 +32,9 @@ public class IndexControllerIT extends BaseIT{
 
     @MockBean
     BeerService beerService;
+
+    @MockBean
+    BeerOrderService beerOrderService;
 
     @Test
     void testGetIndexSlash() throws Exception{

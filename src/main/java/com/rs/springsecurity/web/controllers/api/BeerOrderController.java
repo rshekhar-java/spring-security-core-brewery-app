@@ -1,6 +1,7 @@
 package com.rs.springsecurity.web.controllers.api;
 
 import com.rs.springsecurity.security.permissions.BeerOrderCreatePermission;
+import com.rs.springsecurity.security.permissions.BeerOrderPickupPermission;
 import com.rs.springsecurity.security.permissions.BeerOrderReadPermission;
 import com.rs.springsecurity.security.permissions.BeerReadPermission;
 import com.rs.springsecurity.services.BeerOrderService;
@@ -58,6 +59,7 @@ public class BeerOrderController {
         return beerOrderService.getOrderById(customerId, orderId);
     }
 
+    @BeerOrderPickupPermission
     @PutMapping("/orders/{orderId}/pickup")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void pickupOrder(@PathVariable("customerId") UUID customerId, @PathVariable("orderId") UUID orderId){
