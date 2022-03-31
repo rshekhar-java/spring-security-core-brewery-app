@@ -55,7 +55,8 @@ class CustomerControllerIT extends BaseIT{
             mockMvc.perform(post("/customers/new")
                             .param("customerName", "Foo Customer")
                             .with(httpBasic("spring", "spring")))
-                    .andExpect(status().is3xxRedirection());
+//                    .andExpect(status().is3xxRedirection());
+                    .andExpect(status().isForbidden());
         }
 
         @Rollback
@@ -72,7 +73,8 @@ class CustomerControllerIT extends BaseIT{
         void processCreationFormNOAUTH() throws Exception{
             mockMvc.perform(post("/customers/new")
                             .param("customerName", "Foo Customer"))
-                    .andExpect(status().isUnauthorized());
+//                    .andExpect(status().isUnauthorized());
+                    .andExpect(status().isForbidden());
         }
     }
 
