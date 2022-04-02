@@ -8,10 +8,12 @@
         <label class="col-sm-2 control-label" th:text="${label}">Label</label>
 
         <div class="col-sm-10">
-          <select th:field="*{__${name}__}">
+<!--          <select th:field="*{__${name}__}">
             <option th:each="item : ${items}" th:value="${item}"
               th:text="${item}">dog</option>
-          </select>
+          </select>-->
+          <Select name="items"><option th:each="items : ${T(com.rs.springsecurity.web.model.BeerStyleEnum).values()}"
+                                           th:value="${items}" th:text="${items}"></option></Select>
           <span th:if="${valid}"
             class="glyphicon glyphicon-ok form-control-feedback"
             aria-hidden="true"></span>
