@@ -4,6 +4,7 @@ import com.rs.springsecurity.security.BreweryPasswordEncoderFactories;
 import com.rs.springsecurity.security.JpaUserDetailsService;
 import com.rs.springsecurity.security.RestHeaderAuthFilter;
 import com.rs.springsecurity.security.RestUrlAuthFilter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,10 +34,13 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 /**
  * created by rs 3/7/2022.
  */
+@RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
+
+    private final UserDetailsService userDetailsService;
 
     public RestHeaderAuthFilter restHeaderAuthFilter(AuthenticationManager authenticationManager){
 
@@ -95,7 +99,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                          })
                          .httpBasic()
                          .and()
-                         .csrf().ignoringAntMatchers("/h2-console/**", "/api/**");
+                         .csrf().ignoringAntMatchers("/h2-console/**", "/api/**")
+                         .and().rememberMe()
+                         .key("brew-key")
+                         .userDetailsService(userDetailsService);
         ;
 
 //                http.csrf().disable();
