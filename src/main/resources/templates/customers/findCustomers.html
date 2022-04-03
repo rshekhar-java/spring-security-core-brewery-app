@@ -1,6 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       th:replace="~{fragments/layout :: layout (~{::body},'customers')}">
-
 <body>
 
 <h2>Find Customers</h2>
@@ -21,15 +21,15 @@
     </divmvn>
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default">Find
-                Customer</button>
+            <button type="submit" class="btn btn-default">Find Customer</button>
         </div>
     </div>
 
 </form>
 
-<br />
+<br/>
 <a class="btn btn-default" th:href="@{/customers/new}">Register Customer</a>
+<!--<a sec:authorize="hasAuthority('customer.create')" class="btn btn-default" th:href="@{/customers/new}">Register Customers</a>-->
 
 </body>
 </html>
