@@ -29,6 +29,7 @@ import org.springframework.security.data.repository.query.SecurityEvaluationCont
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
@@ -41,6 +42,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
     private final UserDetailsService userDetailsService;
+    private final PersistentTokenRepository persistentTokenRepository;
 
     public RestHeaderAuthFilter restHeaderAuthFilter(AuthenticationManager authenticationManager){
 
@@ -101,9 +103,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                          .and()
                          .csrf().ignoringAntMatchers("/h2-console/**", "/api/**")
                          .and().rememberMe()
+                         //For Persistent Token
+                                 .tokenRepository(persistentTokenRepository)
+                                 .userDetailsService(userDetailsService);
+
+                 //for Simple HASH BASED
+                         /*.rememberMe()
                          .key("brew-key")
-                         .userDetailsService(userDetailsService);
-        ;
+                         .userDetailsService(userDetailsService);*/
+
 
 //                http.csrf().disable();
 //        http.headers().frameOptions().sameOrigin();
