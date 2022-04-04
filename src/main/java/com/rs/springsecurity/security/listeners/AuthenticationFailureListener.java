@@ -1,6 +1,7 @@
 package com.rs.springsecurity.security.listeners;
 
 import com.rs.springsecurity.domain.security.LoginFailure;
+import com.rs.springsecurity.domain.security.Users;
 import com.rs.springsecurity.repositories.security.LoginFailureRepository;
 import com.rs.springsecurity.repositories.security.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.authentication.event.AuthenticationFailureBadCredentialsEvent;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Component;
+
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * created by rs 4/3/2022.
@@ -44,8 +49,21 @@ public class AuthenticationFailureListener {
             }
             LoginFailure failure = loginFailureRepository.save(builder.build());
             log.debug("Failure Event: " + failure.getId());
+
+            if (failure.getUser() != null) {
+                lockUserAccount(failure.getUser());
+            }
         }
 
+    }
+    private void lockUserAccount(Users user) {
+        List<LoginFailure> failures = loginFailureRepository.findAllByUserAndCreatedDateIsAfter(user,
+                Timestamp.valueOf(LocalDateTime.now().minusDays(1)));
 
+        if(failures.size() > 3){
+            log.debug("Locking User Account... ");
+            user.setAccountNonLocked(false);
+            userRepository.save(user);
+        }
     }
 }
