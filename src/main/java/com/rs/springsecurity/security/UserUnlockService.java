@@ -22,7 +22,7 @@ public class UserUnlockService {
 
     private final UserRepository userRepository;
 
-    @Scheduled(fixedRate = 50000)//5000ms= 5s
+    @Scheduled(fixedRate = 300000)//5000ms= 5s
     public void unlockAccounts(){
         log.debug("Running Unlock Accounts");
 
