@@ -4,6 +4,7 @@ import com.rs.springsecurity.security.BreweryPasswordEncoderFactories;
 import com.rs.springsecurity.security.JpaUserDetailsService;
 import com.rs.springsecurity.security.RestHeaderAuthFilter;
 import com.rs.springsecurity.security.RestUrlAuthFilter;
+import com.rs.springsecurity.security.google.Google2faFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -30,6 +31,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.security.web.session.SessionManagementFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
@@ -43,6 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
     private final UserDetailsService userDetailsService;
     private final PersistentTokenRepository persistentTokenRepository;
+    private final Google2faFilter google2faFilter;
 
     public RestHeaderAuthFilter restHeaderAuthFilter(AuthenticationManager authenticationManager){
 
@@ -74,6 +77,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
             http.addFilterBefore(restUrlAuthFilter(authenticationManager()),
                 UsernamePasswordAuthenticationFilter.class);
+
+            http.addFilterBefore(google2faFilter, SessionManagementFilter.class);
+
         //url pattern matching
                  http
                 .authorizeRequests(authorize -> {
